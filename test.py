@@ -48,5 +48,31 @@ class PlayerTest(unittest.TestCase):
         p.mana = 3
         self.assertEqual(p.can_play_card(), False)
 
+    def test_is_end_turn_empty_hand(self):
+        p = Player()
+        p.hand = []
+        self.assertEqual(p.is_end_turn(), True)
+
+    def test_is_end_turn_empty_can_not_play_card(self):
+        p = Player()
+        p.hand = [6]
+        p.mana = 3
+        self.assertEqual(p.is_end_turn(), True)
+
+    def test_is_die_health_zero(self):
+        p = Player()
+        p.health = 0
+        self.assertEqual(p.is_die(), True)
+
+    def test_is_die_health_below_zero(self):
+        p = Player()
+        p.health = -1
+        self.assertEqual(p.is_die(), True)
+
+    def test_is_die_health_more_than_zero(self):
+        p = Player()
+        p.health = 1
+        self.assertEqual(p.is_die(), False)
+
 if __name__ == '__main__':
     unittest.main()

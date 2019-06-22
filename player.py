@@ -35,6 +35,13 @@ class Player:
             return False
         return True
 
-    # def is_end_turn(self):
-    #     if is_hand_empty() or 
+    def is_end_turn(self):
+        if self.is_hand_empty() or not self.can_play_card():
+            return True
+        return False
+
+    def is_die(self):
+        if self.health < 1:
+            return True
+        return False
     
