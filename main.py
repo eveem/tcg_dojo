@@ -17,22 +17,30 @@ def action():
     print('  (2) End turn?')
     print('  Enter your choice : ', end='')
 
+def switch(me, op):
+    return op, me
+
 if __name__ == "__main__":
-    player_1 = Player(1)
-    player_2 = Player(2)
+    players = []
+    players.append(Player(1))
+    players.append(Player(2))
 
-    # player_1.draw()
-    # player_1.draw()
-    # player_1.draw()
-    # show_detail(player_1)
+    for player in players:
+        player.initial_hand()
 
-    # while True:
-    #     action()
-    #     c = input()
-    #     if c == '1' or c == '2':
-    #         print(c)
-    #         break
-    #     else:
-    #         print("\n      Can't do that !")
+    me = 0
+    op = 1
 
-
+    while True:
+        show_detail(players[me])
+        c = 0
+        while True:
+            action()
+            c = input()
+            if c == '1':
+                break
+            if c == '2' or players[me].is_end_turn():
+                me, op = switch(me, op)
+                break
+            else:
+                print("\n      Can't do that !")

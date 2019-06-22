@@ -116,5 +116,10 @@ class PlayerTest(unittest.TestCase):
         p1.deal_damage(-10, p2)
         self.assertEqual(p2.health, 30)
 
+    def test_initial_hand(self):
+        p = Player()
+        p.initial_hand()
+        self.assertEqual(p.number_of_card_left(), 17)
+
 if __name__ == '__main__':
     unittest.main()

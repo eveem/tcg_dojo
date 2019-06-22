@@ -56,3 +56,8 @@ class Player:
         if dmg > 0:
             to_player.health -= dmg
         return to_player
+
+    def initial_hand(self):
+        start_card_number = 3
+        for i in range(start_card_number):
+            self.draw()
