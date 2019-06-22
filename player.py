@@ -6,6 +6,8 @@ class Player:
         self.deck = {0: 2, 1: 2, 2: 3, 3: 4, 4: 3, 5: 2, 6: 2, 7: 1, 8: 1}
         self.hand = []
         self.bleeding = False
+        self.health = 30
+        self.mana = 0
 
     def draw(self):
         card_cost = choice(list(self.deck.keys()))
@@ -24,5 +26,15 @@ class Player:
             return True
         return False
 
+    def is_hand_empty(self):
+        return not bool(self.hand)
 
+    def can_play_card(self):
+        lowerest_card_in_hand = min(self.hand)
+        if lowerest_card_in_hand > self.mana:
+            return False
+        return True
+
+    # def is_end_turn(self):
+    #     if is_hand_empty() or 
     
