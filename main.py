@@ -9,6 +9,10 @@ def show_detail(player):
     print(f'  Card left : {player.number_of_card_left()}')
     print(f'  Mana      : {player.mana}')
 
+def show_important_detail(player):
+    print(f'  Your hand : {player.hand}')
+    print(f'  Your mana : {player.mana}')
+
 def action():
     print('--------------------------')
     print('|    Choose something    |')
@@ -32,7 +36,8 @@ if __name__ == "__main__":
     op = 1
 
     turn_count = [0, 0]
-    while True:
+    game = True
+    while game:
         player = players[me]
         opponent = players[op]
         player.draw()
@@ -43,10 +48,11 @@ if __name__ == "__main__":
         while True:
             if player.is_end_turn():
                 print("\n   Can't play anything")
-                print("     Force end turn !")
-                me, op = switch(me, op)
+                print("     Force end turn!")
                 break
+            
             action()
+            
             c = int(input())
             if c == 1:
                 print('  Choose card : ', end='')
@@ -54,15 +60,24 @@ if __name__ == "__main__":
                 if card in player.hand and player.mana >= card:
                     player.deal_damage(card, opponent)
                     player.use_card(card)
+                    print(f"\n  Player {player.pid} health : {opponent.health}")
                 elif card not in player.hand:
-                    print("\n  Don't have that card !")
+                    print("\n  Don't have that card!")
                 elif player.mana < card:
-                    print("\n  Don't have enough mana !")
+                    print("\n  Don't have enough mana!")
+                show_important_detail(player)
             elif c == 2:
-                me, op = switch(me, op)
                 break
             else:
-                print("\n      Can't do that !")
+                print("\n      Can't do that!")
+            
+            if opponent.is_die():
+                print('\n--------------------------')
+                print('|                        |')
+                print(f'|     Player {player.pid} win !     |')
+                print('|                        |')
+                print('--------------------------')
+                game = False
+                break
 
-            # if opponent.is_die():
-            #     print(f'Player {player.pid} win !!')
+        me, op = switch(me, op)
