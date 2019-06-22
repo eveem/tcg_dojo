@@ -19,5 +19,10 @@ class Player:
             return True
         return False
 
+    def is_deck_empty(self):
+        if len(self.deck) == 0:
+            return True
+        return False
+
 
     

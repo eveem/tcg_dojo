@@ -16,5 +16,15 @@ class PlayerTest(unittest.TestCase):
         p.hand = [1, 2, 3, 4]
         self.assertEqual(p.can_draw(), True)
 
+    def test_deck_empty(self):
+        p = Player()
+        p.deck = {}
+        self.assertEqual(p.is_deck_empty(), True)
+
+    def test_deck_not_empty(self):
+        p = Player()
+        p.deck = {1: 1}
+        self.assertEqual(p.is_deck_empty(), False)
+
 if __name__ == '__main__':
     unittest.main()
