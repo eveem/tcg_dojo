@@ -95,5 +95,26 @@ class PlayerTest(unittest.TestCase):
             p.draw()
         self.assertEqual(p.number_of_card_left(), 5)
 
+    def test_deal_little_damage(self):
+        p1 = Player(1)
+        p2 = Player(2)
+
+        p1.deal_damage(3, p2)
+        self.assertEqual(p2.health, 27)
+
+    def test_deal_zero_damage(self):
+        p1 = Player(1)
+        p2 = Player(2)
+
+        p1.deal_damage(0, p2)
+        self.assertEqual(p2.health, 30)
+    
+    def test_deal_negative_damage(self):
+        p1 = Player(1)
+        p2 = Player(2)
+
+        p1.deal_damage(-10, p2)
+        self.assertEqual(p2.health, 30)
+
 if __name__ == '__main__':
     unittest.main()

@@ -51,3 +51,8 @@ class Player:
     
     def number_of_card_left(self):
         return sum(list(self.deck.values()))
+
+    def deal_damage(self, dmg, to_player):
+        if dmg > 0:
+            to_player.health -= dmg
+        return to_player
