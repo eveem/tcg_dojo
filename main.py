@@ -52,8 +52,8 @@ if __name__ == "__main__":
         
         while True:
             if player.is_end_turn():
-                print("\n   Can't play anything")
-                print("     Force end turn!")
+                print("\n      Can't play anything")
+                print("        Force end turn!")
                 break
             
             action()
@@ -85,7 +85,7 @@ if __name__ == "__main__":
             elif c == 2:
                 break
             else:
-                print("\n      Can't do that!")
+                print("\n        Can't do that!")
             
             if opponent.is_die():
                 print('\n------------------------------')
