@@ -2,19 +2,23 @@ from random import choice
 
 class Player:
 
-    def __init__(self):
+    def __init__(self, pid=0):
+        self.pid = pid
         self.deck = {0: 2, 1: 2, 2: 3, 3: 4, 4: 3, 5: 2, 6: 2, 7: 1, 8: 1}
         self.hand = []
         self.bleeding = False
         self.health = 30
-        self.mana = 0
+        self.mana = 1
 
     def draw(self):
-        card_cost = choice(list(self.deck.keys()))
-        self.deck[card_cost] -= 1
-        if self.deck[card_cost] == 0:
-            self.deck.pop(card_cost)
-        return card_cost
+        if not self.is_deck_empty():
+            card_cost = choice(list(self.deck.keys()))
+            self.deck[card_cost] -= 1
+            if self.deck[card_cost] == 0:
+                self.deck.pop(card_cost)
+            
+            if self.can_draw():
+                self.hand.append(card_cost)
 
     def can_draw(self):
         if len(self.hand) < 5:
@@ -45,3 +49,5 @@ class Player:
             return True
         return False
     
+    def number_of_card_left(self):
+        return sum(list(self.deck.values()))
