@@ -1,9 +1,9 @@
 from player import Player
 
 def show_detail(player):
-    print('--------------------------')
-    print(f'|        Player {player.pid}        |')
-    print('--------------------------')
+    print('------------------------------')
+    print(f'|          Player {player.pid}          |')
+    print('------------------------------')
     print(f'  Health    : {player.health}')
     print(f'  Hand      : {player.hand}')
     print(f'  Card left : {player.number_of_card_left()}')
@@ -14,9 +14,9 @@ def show_important_detail(player):
     print(f'  Your mana : {player.mana}')
 
 def action():
-    print('--------------------------')
-    print('|    Choose something    |')
-    print('--------------------------')
+    print('      ------------------')
+    print('       Choose something     ')
+    print('      ------------------')
     print('  (1) Play any card')
     print('  (2) End turn?')
     print('  Enter your choice : ', end='')
@@ -36,15 +36,20 @@ if __name__ == "__main__":
     op = 1
 
     turn_count = [0, 0]
-    game = True
-    while game:
+    game_loop = True
+    while game_loop:
         player = players[me]
         opponent = players[op]
+        
+        if player.is_deck_empty():
+            player.health -= 1
+        
         player.draw()
         turn_count[me] += 1
         player.mana = min(turn_count[me], 10)
         show_detail(player)
         c = 0
+        
         while True:
             if player.is_end_turn():
                 print("\n   Can't play anything")
@@ -53,10 +58,21 @@ if __name__ == "__main__":
             
             action()
             
-            c = int(input())
+            c = input()
+            try:
+                c = int(c)
+            except:
+                c = 0
+
             if c == 1:
                 print('  Choose card : ', end='')
-                card = int(input())
+                card = input()
+                
+                try:
+                    card = int(card)
+                except:
+                    card = -1
+
                 if card in player.hand and player.mana >= card:
                     player.deal_damage(card, opponent)
                     player.use_card(card)
@@ -72,12 +88,12 @@ if __name__ == "__main__":
                 print("\n      Can't do that!")
             
             if opponent.is_die():
-                print('\n--------------------------')
-                print('|                        |')
-                print(f'|     Player {player.pid} win !     |')
-                print('|                        |')
-                print('--------------------------')
-                game = False
+                print('\n------------------------------')
+                print('|                            |')
+                print(f'|       Player {player.pid} win !       |')
+                print('|                            |')
+                print('------------------------------')
+                game_loop = False
                 break
 
         me, op = switch(me, op)

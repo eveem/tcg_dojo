@@ -6,9 +6,8 @@ class Player:
         self.pid = pid
         self.deck = {0: 2, 1: 2, 2: 3, 3: 4, 4: 3, 5: 2, 6: 2, 7: 1, 8: 1}
         self.hand = []
-        self.bleeding = False
         self.health = 30
-        self.mana = 1
+        self.mana = 0
 
     def draw(self):
         if not self.is_deck_empty():
