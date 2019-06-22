@@ -121,5 +121,11 @@ class PlayerTest(unittest.TestCase):
         p.initial_hand()
         self.assertEqual(p.number_of_card_left(), 17)
 
+    def test_use_card_check_hand(self):
+        p = Player()
+        p.initial_hand()
+        p.use_card(p.hand[0])
+        self.assertEqual(len(p.hand), 2)
+
 if __name__ == '__main__':
     unittest.main()

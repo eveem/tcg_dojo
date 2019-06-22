@@ -31,16 +31,38 @@ if __name__ == "__main__":
     me = 0
     op = 1
 
+    turn_count = [0, 0]
     while True:
-        show_detail(players[me])
+        player = players[me]
+        opponent = players[op]
+        player.draw()
+        turn_count[me] += 1
+        player.mana = min(turn_count[me], 10)
+        show_detail(player)
         c = 0
         while True:
-            action()
-            c = input()
-            if c == '1':
+            if player.is_end_turn():
+                print("\n   Can't play anything")
+                print("     Force end turn !")
+                me, op = switch(me, op)
                 break
-            if c == '2' or players[me].is_end_turn():
+            action()
+            c = int(input())
+            if c == 1:
+                print('  Choose card : ', end='')
+                card = int(input())
+                if card in player.hand and player.mana >= card:
+                    player.deal_damage(card, opponent)
+                    player.use_card(card)
+                elif card not in player.hand:
+                    print("\n  Don't have that card !")
+                elif player.mana < card:
+                    print("\n  Don't have enough mana !")
+            elif c == 2:
                 me, op = switch(me, op)
                 break
             else:
                 print("\n      Can't do that !")
+
+            # if opponent.is_die():
+            #     print(f'Player {player.pid} win !!')

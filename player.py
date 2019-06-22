@@ -61,3 +61,8 @@ class Player:
         start_card_number = 3
         for i in range(start_card_number):
             self.draw()
+
+    def use_card(self, card):
+        self.hand.remove(card)
+        self.mana -= card
+        
